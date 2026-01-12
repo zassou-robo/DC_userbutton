@@ -6,6 +6,7 @@ DigitalIn user_button(BUTTON1, PullUp);
 CAN J3(PA_11, PA_12, 1e6);
 // CAN J4(PB_12, PB_13, 1e6);
 CANMessage motoro_msg;
+constexpr int CAN_ID = 1; 
 
 int push_amount = 0;
 
@@ -35,8 +36,8 @@ int main(){
             if(push_amount > 3){
                 push_amount = 0;
             }
-            pre_user_button = user_button;
         }
+            pre_user_button = user_button;
         if(now - pre > 10ms){
             CANMessage motor1(1,(uint8_t *)pwm1, 8);
             J3.write(motor1);
