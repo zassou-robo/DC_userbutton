@@ -24,22 +24,23 @@ int main(){
             pwm1[1] = -16000;
             pwm1[2] = 16000;
             pwm1[3] = -16000;
-        }else if(push_amount == 2){
-            pwm1[0] = -16000;
-            pwm1[1] = 16000;
-            pwm1[2] = -16000;
-            pwm1[3] = 16000;
         }
+        // }else if(push_amount == 2){
+        //     pwm1[0] = -16000;
+        //     pwm1[1] = 16000;
+        //     pwm1[2] = -16000;
+        //     pwm1[3] = 16000;
+        // }
         static bool pre_user_button = 0;
         if(pre_user_button && user_button == 0){
             push_amount++;
-            if(push_amount > 3){
+            if(push_amount > 1){
                 push_amount = 0;
             }
         }
-            pre_user_button = user_button;
+        pre_user_button = user_button;
         if(now - pre > 10ms){
-            CANMessage motor1(1,(uint8_t *)pwm1, 8);
+            CANMessage motor1(CAN_ID,(uint8_t *)pwm1, 8);
             J3.write(motor1);
             pre = now;
         }
